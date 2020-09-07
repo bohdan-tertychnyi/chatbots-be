@@ -1,5 +1,9 @@
 const app = require('express')()
 const cors = require('cors')
+require('./models/bots')
+require('./db')
+require('./migrations/bots')
+const {requestBot, get: getBots} = require('./controllers/bots')
 
 app.use(cors())
 
@@ -7,33 +11,14 @@ const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const port = 3337
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
+// app.get('/', get)
 
-// const connections = []
+app.get('/bots', getBots)
 
 io.on('connection', (socket) => {
-    // connections.push(socket)
-    // socket.on('disconnect', data => {
-    //   console.log(data)
-    // })
+    // socket.on('request-bot', )
 
-    socket.on('request-bot', data => {
-      const {botId, message} = data
-      // switch (botId) {
-      //   case value:
-          
-      //     break;
-      
-      //   default:
-      //     break;
-      // }
-
-      console.log('OPERATING WITH DB ...')
-
-      socket.emit('response-bot', {message: Math.round(Math.random() * 100)})
-    })
+    socket.on('request-bot', data => requestBot(socket, data))
 })
 
 http.listen(port, () => {
