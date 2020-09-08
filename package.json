@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "lint": "eslint src",
+    "start": "nodemon index.js --exec 'npm run lint && node'"
+  },
+  "engines": {
+    "node": ">=8.10.0"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +18,9 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.1.1",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-plugin-node": "^11.1.0"
   }
 }

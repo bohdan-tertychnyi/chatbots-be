@@ -1,36 +1,26 @@
-const model = require('../models/bots')
+const Service = require('../services/bots')
 
 const Controller = () => {
-    let bots = []
     
     const get = async (req,res) => {
-        const list = await model.getBots()
+        const list = await Service.get()
 
-
-
-        res.send(list.map(({name, messageHistory, icon}) => ({name, messageHistory, icon})))
+        res.send(list)
     }
 
-    const initBots = async () => {
-        bots = await model.getBots()
-    } 
-
     const responseBot = async (socket, botId) => {
-        console.log(botId)
+        const bots = await Service.get()
         const bot = bots.find(({name}) => name === botId)
         const {answers} = bot
-
         const message = answers[Math.floor(Math.random()*answers.length)];
-
-
-        console.log('responseBot bots', bot, botId)
-
+        Service.save({message, botId, author: 'bot'})
 
         socket.emit('response-bot', {message, botId })
     }
 
     const requestBot = (socket,data) => {
         const {botId, message} = data
+        Service.save({message, botId, author: 'user'})
 
         const minTimeout = 1
         const maxTimeout = 5
@@ -43,15 +33,10 @@ const Controller = () => {
 
     return {
         requestBot,
-        initBots,
         get
     }
 }
 
 const controller = Controller()
-
-console.log({controller})
-
-controller.initBots()
 
 module.exports = controller

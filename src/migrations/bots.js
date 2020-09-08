@@ -66,6 +66,6 @@ const createBots = () => {
     Bots.createBots(payload)
 }
 
-// deleteBots()
+deleteBots()
 
-// createBots()
+createBots()

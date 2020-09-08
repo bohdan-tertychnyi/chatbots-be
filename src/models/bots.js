@@ -1,7 +1,5 @@
 const db = require('../db')
 
-console.log({db})
-
 const Bots = () => {
     let bots = {}
 
@@ -15,13 +13,10 @@ const Bots = () => {
         })
 
         return docsList
-
     }
 
     const deleteBots = async () => {
         const {docs} = await db.collection('bots').get()
-
-        console.log('docs', docs)
 
         docs.forEach(({id}) => {
             console.log(id)
