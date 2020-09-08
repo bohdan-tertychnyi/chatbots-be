@@ -16,6 +16,6 @@ io.on('connection', (socket) => {
 })
 
 http.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`)
+  console.log(`Server listening at http://localhost:${port}`)
 })
 

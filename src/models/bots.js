@@ -26,8 +26,8 @@ const Bots = () => {
     }
 
     const createBots = async (payload) => {
-        payload.forEach(fields => {
-            const bot = db.collection('bots').doc()
+        payload.forEach((fields,index) => {
+            const bot = db.collection('bots').doc(`${index}`)
             bot.set({...fields}) 
         })
     }
