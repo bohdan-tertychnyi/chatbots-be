@@ -1,6 +1,6 @@
 const Model = require('../models/messages')
 
-const createMessages = () => {
+const createMessages = () => { //eslint-disable-line
     const payload = [
         {
             author: 'bot',
@@ -18,7 +18,7 @@ const deleteMessages = () => {
     Model.del()
 }
 
-createMessages()
+// createMessages()
 
 deleteMessages()
 
